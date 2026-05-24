@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #060B15;
+  color: #e2e8f0;
+  font-family: 'Inter', 'SF Pro Display', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Neon glow utility */
+.glow-cyan {
+  box-shadow:
+    0 0 5px rgba(0, 229, 255, 0.3),
+    0 0 15px rgba(0, 229, 255, 0.1),
+    inset 0 0 5px rgba(0, 229, 255, 0.05);
+}
+
+.glow-cyan-border {
+  border-color: rgba(0, 229, 255, 0.35);
+  box-shadow:
+    0 0 6px rgba(0, 229, 255, 0.2),
+    inset 0 0 6px rgba(0, 229, 255, 0.05);
+}
+
+/* Scan line overlay for cyberpunk feel */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* Chat bubble tail — alert (red) variant */
+.bubble-tail::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 16px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  /* Default to dark card border */
+  border-right: 8px solid rgba(15, 23, 42, 0.9);
+}
+
+/* Override tail color via parent alert class — match glassmorphism red-950 */
+.bubble-tail-alert::before {
+  border-right-color: rgba(127, 29, 29, 0.95);
+}
+
+/* Popup slide-in animation */
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Avatar glow pulse */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 16px rgba(0, 229, 255, 0.1); }
+  50%      { box-shadow: 0 0 28px rgba(0, 229, 255, 0.25); }
+}
+
+.avatar-glow {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
